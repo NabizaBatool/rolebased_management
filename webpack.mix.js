@@ -12,9 +12,9 @@ const mix = require('laravel-mix');
  */
 
 var path = {
-    'plugins': "./resources/plugins/",
     'js': "./resources/js/plugins/",
     'css': "./resources/css/",
+    
 }
 
 mix.styles([
@@ -25,21 +25,7 @@ mix.styles([
 
 
 mix.scripts([
-   // path.js + 'plugins',
     path.js + "jquery.min.js",
-    // path.plugins + "jquery-ui.min.js",
-    // path.plugins + "jquery.knob.min.js",
-    // path.plugins + "jquery.overlayScrollbars.min.js",
-    // path.plugins + "jquery.vmap.min.js",
-    // path.plugins + "jquery.vmap.usa.js",
-    // path.plugins + "moment.min.js",
-    // path.plugins + "sparkline.js",
-    // path.plugins + "summernote-bs4.min.js",
-    // path.plugins + "daterangepicker.js",
-    // path.plugins + "demo.js",
-    // path.plugins + "dashboard.js",
-    // path.plugins + "tempusdominus-bootstrap-4.min.js",
-    // path.plugins + "adminlte.js",
     path.js + "adminlte.min.js",
     path.js + "bootstrap.bundle.min.js"
 ], 'public/js/master.js').version();

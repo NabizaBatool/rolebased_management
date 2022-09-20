@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/record', function () {
-    return view('users.list');
-});
+Route::get('/record', [UserController::class, 'view_user'])->name('user.viewuser');
 Route::get('/auth/login',  function () {
     return view('auth.login');
 });
@@ -28,4 +28,6 @@ Route::get('/dashboard', function () {
 Route::get('/adduser', function () {
     return view('users.create');
 });
+Route::post('/updateuser/{id}', [UserController::class, 'update']);
 Route::post('/adduser', [UserController::class, 'add_user'])->name('user.addUser');
+Route::get('/edituser/{id}', [UserController::class, 'edit_user']);

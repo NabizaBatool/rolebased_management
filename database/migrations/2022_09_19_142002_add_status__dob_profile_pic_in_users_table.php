@@ -15,8 +15,8 @@ class AddStatusDobProfilePicInUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('profile_pic')->nullable();
-            $table->string('dob');
-            $table->string('status');
+            $table->string('dob')->nullable();
+            $table->string('status')->nullable();
             //
         });
     }

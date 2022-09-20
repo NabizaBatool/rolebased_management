@@ -1,9 +1,8 @@
 @extends('layout.base')
-@section('title')
-Dashboard
-@endsection
-@section('content')
 
+@section('title','Dashboard')
+
+@section('content')
 <body class="hold-transition  sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
         <!-- Preloader -->
@@ -15,6 +14,4 @@ Dashboard
         @include('layout.footer')
     </div>
 </body>
-
-
 @endsection
