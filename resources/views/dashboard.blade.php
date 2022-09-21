@@ -7,10 +7,10 @@
     <div class="wrapper">
         <!-- Preloader -->
         @include('layout.preloader')
-        @yield('additional')
         <!-- Navbar -->
         @include('layout.navbar')
         @include('layout.sidebar')
+        @yield('section')
         @include('layout.footer')
     </div>
 </body>

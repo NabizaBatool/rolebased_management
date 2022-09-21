@@ -14,20 +14,26 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/record', [UserController::class, 'view_user'])->name('user.viewuser');
-Route::get('/auth/login',  function () {
-    return view('auth.login');
-});
 Route::get('/auth/register',  function () {
     return view('auth.register');
+});
+
+Route::get('/auth/login',  function () {
+    return view('auth.login');
 });
 Route::get('/dashboard', function () {
     return view('dashboard');
 });
+
+Route::get('/users', [UserController::class, 'listUser'])->name('users');
 Route::get('/adduser', function () {
-    return view('users.create');
+   return view('users.create');
 });
-Route::post('/updateuser/{id}', [UserController::class, 'update']);
-Route::post('/adduser', [UserController::class, 'add_user'])->name('user.addUser');
-Route::get('/edituser/{id}', [UserController::class, 'edit_user']);
+
+Route::get('/edituser/{id}', [UserController::class, 'editUser']);
+Route::get('/deleteuser/{id}', [UserController::class, 'deleteUser']);
+Route::post('/adduser', [UserController::class, 'addUser'])->name('adduser');
+
+Route::put('/updateuser/{id}', [UserController::class, 'update']);
+
+

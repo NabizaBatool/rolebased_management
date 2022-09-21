@@ -1,6 +1,6 @@
  @extends('dashboard')
  <!-- Main content -->
- @section('additional')
+ @section('section')
  <div class="content-wrapper">
      <section class="content">
          <div class="container-fluid">
@@ -14,44 +14,40 @@
                          </div>
                          <!-- /.card-header -->
                          <!-- form start -->
-                         <form action="{{ route('user.addUser') }}" method="post"  enctype="multipart/form-data">
-                             @csrf
-                             <div class="card-body">
-                                 <div class="form-group">
-                                     <label for="name">Name</label>
-                                     <input type="text" name="name" class="form-control" id="name" placeholder="Enter name">
-                                 </div>
-                                 <div class="form-group">
-                                     <label for="Email">Email address</label>
-                                     <input type="email" name="email" class="form-control" id="Email" placeholder="Enter email">
-                                 </div>
-                                 <div class="form-group">
-                                     <label for="Password">Password</label>
-                                     <input type="password" name="password" class="form-control" id="Password" placeholder="Password">
-                                 </div>
-                                 <div class="form-group">
-                                     <label for="dob">Date Of Birth</label>
-                                     <input type="date" name="dob" class="form-control" id="dob" placeholder="Date of Birth">
-                                 </div>
-                                 <div class="form-group mb-3">
-                                    <input type="file" name="profile_pic" class="form-control">
-                                 </div>
-                                 <div class="form-check">
-                                     <input type="checkbox" name="status" class="form-check-input" id="exampleCheck1">
-                                     <label class="form-check-label" for="exampleCheck1">Active</label>
-                                 </div>
-
+                         <div class="card-body">
+                             {{ Form::open(array('url' => '/adduser' , 'method' => 'POST', 'enctype' => 'multipart/form-data')) }}
+                             <div class="form-group">
+                                 {{Form::label('Name')}}
+                                 {{Form::text('name', '', ['class' => 'form-control', 'required' => 'required'  , 'id' => 'name' ,'placeholder' => 'Enter name'])}}
                              </div>
-
-                             <div class="card-footer">
-                                 <button type="submit" class="btn btn-primary">Submit</button>
+                             <div class="form-group">
+                                 {{ Form::label('E-Mail')}}
+                                 {{Form::email('email', '', ['class' => 'form-control', 'required' => 'required' , 'id' => 'email' ,'placeholder' => 'Enter email'])}}
                              </div>
-                         </form>
+                             <div class="form-group">
+                                 {{ Form::label('Password')}}
+                                 {{Form::password('password', ['class' => 'form-control'  , 'required' => 'required' , 'placeholder' => 'Password...' ])}}
+                             </div>
+                             <div class="form-group">
+                                 {{ Form::label('Date Of Birth')}}
+                                 {{Form::date('dob', '', ['class' => 'form-control'  , 'required' => 'required' , 'placeholder' => 'Date of Birth' ])}}
+                             </div>
+                             <div class="form-group">
+                                 {{Form::file('profile_pic')}}
+                             </div>
+                             <div class="form-group">
+                             {{Form::checkbox('status')}}
+                             {{ Form::label('Active')}}
+                             </div>
+                             {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
+                             {{ Form::close() }}
+                         </div>
                      </div>
                  </div>
              </div>
          </div>
      </section>
  </div>
+
 
  @endsection
