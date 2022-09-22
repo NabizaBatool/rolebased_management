@@ -16,34 +16,36 @@
                         <!-- /.card-header -->
                         <!-- form start -->
                         <div class="card-body">
-                        {{ Form::open(array('url' => 'updateuser/'.$user->id , 'method' => 'PUT', 'enctype' => 'multipart/form-data')) }}
-                             <div class="form-group">
-                                 {{Form::label('Name')}}
-                                 {{Form::text('name', $user->name, ['class' => 'form-control', 'required' => 'required'  , 'id' => 'name' ,'placeholder' => 'Enter name'])}}
-                             </div>
-                             <div class="form-group">
-                                 {{ Form::label('E-Mail')}}
-                                 {{Form::email('email',  $user->email, ['class' => 'form-control', 'required' => 'required' , 'id' => 'email' ,'placeholder' => 'Enter email'])}}
-                             </div>
-                             <div class="form-group">
-                                 {{ Form::label('Date Of Birth')}}
-                                 {{Form::date('dob', $user->dob, ['class' => 'form-control'  , 'required' => 'required' , 'placeholder' => 'Date of Birth' ])}}
-                             </div>
-                            
-                                <div class="form-group mb-3">
-                                    <input type="file" name="profile_pic" class="form-control">
-                                    <img src="{{ asset('img/users/'.$user->profile_pic) }}" style="height: 80px; width: 80px;">
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" value="on" {{ $user->status=='on' ? 'checked':'' }} name="status" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Active</label>
-                                </div>
-                            </form>
+                            {{ Form::open(array('url' => 'updateuser/'.$user->id , 'method' => 'PUT', 'enctype' => 'multipart/form-data')) }}
+                            <div class="form-group">
+                                {{Form::label('Name')}}
+                                {{Form::text('name', $user->name, ['class' => 'form-control','placeholder' => 'Enter name'])}}
+                                <span class="text-danger">@error('name'){{ $message }} @enderror</span>
+                            </div>
+                            <div class="form-group">
+                                {{ Form::label('E-Mail')}}
+                                {{Form::email('email', $user->email, ['class' => 'form-control' ,'placeholder' => 'Enter email'])}}
+                                <span class="text-danger">@error('email'){{ $message }} @enderror</span>
+                            </div>
+                            <div class="form-group">
+                                {{ Form::label('Date Of Birth')}}
+                                {{Form::date('dob', $user->dob, ['class' => 'form-control'   , 'placeholder' => 'Date of Birth' ])}}
+                                <span class="text-danger">@error('dob'){{ $message }} @enderror</span>
+                            </div>
+
+                            <div class="form-group">
+                                <img src="{{ asset('img/users/'.$user->profile_pic) }}" style="height: 80px; width: 80px;">
+                                {{Form::file('profile_pic')}}
+                                <span class="text-danger">@error('profile_pic'){{ $message }} @enderror</span>
+                            </div>
+                            <div class="form-group">
+                                {{ Form::checkbox('status', 'Active', $user->status=='Active') }}
+                                {{ Form::label('Active')}}
+                            </div>
+                            {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
+                            {{ Form::close() }}
                         </div>
 
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Upload</button>
-                        </div>
 
                     </div>
 

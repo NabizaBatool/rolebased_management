@@ -18,26 +18,32 @@
                              {{ Form::open(array('url' => '/adduser' , 'method' => 'POST', 'enctype' => 'multipart/form-data')) }}
                              <div class="form-group">
                                  {{Form::label('Name')}}
-                                 {{Form::text('name', '', ['class' => 'form-control', 'required' => 'required'  , 'id' => 'name' ,'placeholder' => 'Enter name'])}}
+                                 {{Form::text('name', '', ['class' => 'form-control'  ,'placeholder' => 'Enter name'])}}
+                                 <span class="text-danger">@error('name'){{ $message }} @enderror</span>
                              </div>
                              <div class="form-group">
                                  {{ Form::label('E-Mail')}}
-                                 {{Form::email('email', '', ['class' => 'form-control', 'required' => 'required' , 'id' => 'email' ,'placeholder' => 'Enter email'])}}
+                                 {{Form::email('email', '', ['class' => 'form-control','placeholder' => 'Enter email'])}}
+                                 <span class="text-danger">@error('email'){{ $message }} @enderror</span>
                              </div>
                              <div class="form-group">
                                  {{ Form::label('Password')}}
-                                 {{Form::password('password', ['class' => 'form-control'  , 'required' => 'required' , 'placeholder' => 'Password...' ])}}
+                                 {{Form::password('password', ['class' => 'form-control'   , 'placeholder' => 'Password...' ])}}
+                                 <span class="text-danger">@error('password'){{ $message }} @enderror</span>
                              </div>
                              <div class="form-group">
                                  {{ Form::label('Date Of Birth')}}
-                                 {{Form::date('dob', '', ['class' => 'form-control'  , 'required' => 'required' , 'placeholder' => 'Date of Birth' ])}}
+                                 {{Form::date('dob', '', ['class' => 'form-control'  , 'placeholder' => 'Date of Birth' ])}}
+                                 <span class="text-danger">@error('dob'){{ $message }} @enderror</span>
                              </div>
                              <div class="form-group">
                                  {{Form::file('profile_pic')}}
+                                 <span class="text-danger">@error('profile_pic'){{ $message }} @enderror</span>
                              </div>
                              <div class="form-group">
-                             {{Form::checkbox('status')}}
-                             {{ Form::label('Active')}}
+                                 {{Form::checkbox('status')}}
+                                 {{ Form::label('Active')}}
+                
                              </div>
                              {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
                              {{ Form::close() }}

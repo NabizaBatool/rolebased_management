@@ -13,5 +13,7 @@
         @yield('section')
         @include('layout.footer')
     </div>
+@yield('js')
+
 </body>
 @endsection
