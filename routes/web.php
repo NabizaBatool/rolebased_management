@@ -41,7 +41,10 @@ Route::put('/updateuser/{id}', [UserController::class, 'update']);
 
 Route::get('/customers', [CustomerController::class, 'listCustomer'])->name('customers');
 
-Route::get('/index' ,function () {
+
+//Route::get('/customers' , [CustomerController::class, 'createCustomer'] );
+Route::get('/addcustomer' ,function () {
     return view('customers.create');
 });
-Route::get('/formsubmit', [CustomerController::class, 'createCustomer']);
+Route::post('/formsubmit', [CustomerController::class, 'createCustomer']);
+ 
