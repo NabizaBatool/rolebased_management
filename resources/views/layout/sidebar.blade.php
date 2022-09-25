@@ -28,7 +28,7 @@
             </a>
         </li>
         <li class="nav-item menu-open">
-            <a href=# class="nav-link {{ Request::is('users') || Request::is('role') ? 'active' : '' }}">
+            <a href=# class="nav-link {{ Request::is('users') || Request::is('customers') ? 'active' : '' }}">
                 <i class="ion-grid"></i>
                 <p>
                     Account Management
@@ -40,6 +40,12 @@
                     <a href="{{url('users')}}" class="nav-link {{ Request::is('users') ? 'active' : '' }}">
                         <i class="ion-android-person"></i>
                         <p>User</p>
+                    </a>
+                </li>
+                <li class=" nav-item ">
+                    <a href="{{url('customers')}}" class="nav-link {{ Request::is('customers') ? 'active' : '' }}">
+                        <i class="ion-android-person"></i>
+                        <p>Customer</p>
                     </a>
                 </li>
                 <li class=" nav-item ">

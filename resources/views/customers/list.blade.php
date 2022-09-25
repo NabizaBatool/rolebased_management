@@ -3,9 +3,14 @@
 <div class="content-wrapper">
     @include('layout.alerts')
     <div class="container">
-        <h4>Customers</h4>
-        <a href="{{ url('/addcustomer')}}" class="btn bg-primary mr-2"> <i class="ion-android-person-add"></i></a>
-        <table class="table table-bordered data-table">
+        <div class="card-header bg-warning mb-3">
+            <h1 class="card-title ">Customers Record</h1>
+            <div class="card-tools float-right ">
+                <a href="{{ url('/addcustomer')}}" class="btn bg-primary mr-2"> <i class="ion-android-person-add"></i></a>
+            </div>
+        </div>
+
+        <table class="table table-hover table-bordered data-table">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -19,11 +24,10 @@
             </tbody>
         </table>
     </div>
-
     @endsection
     @section('js')
     <script>
-        $(function() {
+        $(document).ready(function() {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -34,7 +38,7 @@
                 serverSide: true,
                 ajax: "{{ route('customers') }}",
                 columns: [{
-                        data: $cust.name,
+                        data: 'name',
                         name: 'name'
                     },
                     {
@@ -53,6 +57,38 @@
                     },
                 ]
             });
+          
+            $(document).on('click', '.deleteCustomer', function() {
+
+                var customer_id = $(this).data("id");
+                if (confirm("Are You sure want to delete !")) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: "{{ url('deletecustomer') }}" + '/' + customer_id,
+                        success: function(data) {
+                            table.draw();
+                        },
+                        error: function(data) {
+                            console.log('Error:', data);
+                        }
+                    });
+
+                }
+            });
+
+            // $(document).on('click', '.editCustomer', function() {
+            //     var customer_id = $(this).data("id");
+            //     // $.get("{{ url('editcustomer') }}" + '/' + customer_id, function(data) {
+            //     $.ajax({
+            //     type: "GET",
+            //     url: "{{ url('editcustomer') }}" + '/' + customer_id,
+            //     contentType: false,
+            //     processData: false,
+
+            //    });
+            //  });
+
         });
     </script>
+
     @endsection

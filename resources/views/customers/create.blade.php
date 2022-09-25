@@ -15,20 +15,21 @@
                         <div class="card-body">
                             {{ Form::open(array('id'=>'customerForm',  'enctype' => 'multipart/form-data')) }}
                             @csrf
+                            <ul class="alert alert-warning d-none" id="save_errorlist"></ul>
                             <div class="form-group">
                                 {{Form::label('name', 'Name', ['class' => 'awesome'])}}
-                                {{Form::text('name', '', ['class' => 'form-control'  ,'placeholder' => 'Enter name'])}}
+                                {{Form::text('name','', ['class' => 'form-control', 'id'=>'name'  ,'placeholder' => 'Enter name'])}}
                                 <span class="text-danger">@error('name'){{ $message }} @enderror</span>
                             </div>
                             <div class="form-group">
-                                {{Form::select('status',['0','1'])}}
+                                {{Form::select('status',['0','1'] , ['id'=>'status'] )}}
                                 {{ Form::label('Active')}}
                             </div>
                             <div class="form-group">
-                                {{Form::file('profile')}}
+                                {{Form::file('profile' , ['id'=>'profile'])}}
                                 <span class="text-danger">@error('profile'){{ $message }} @enderror</span>
                             </div>
-                            <button id="submit" type="button"  class="btn btn-primary">Submit</button>
+                            <button id="submit" type="submit" class="btn btn-primary">Submit</button>
                             {{ Form::close() }}
                         </div>
                     </div>
@@ -41,46 +42,43 @@
 @endsection
 @section('js')
 <script>
-    $('#submit').click(function (e) {
-        e.preventDefault();
-     
-        $.ajax({
-            url: "{{url('/formsubmit')}}",
-            // crossDomain: FALSE,
-            type: "POST",
-            data: $('#customerForm').serialize(),
-            success: function(response) {
-
-                window.location.href = "/path/to/thankyoupage"
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
+        });
+        $(document).on('submit', '#customerForm', function(e) {
+            e.preventDefault();
+            let formData = new FormData($('#customerForm')[0]);
+            $.ajax({
+                type: "POST",
+                url: '/formsubmit',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    if (response.status == 400) {
+                        $('#save_errorlist').html('');
+                        $('#save_errorlist').removeClass('d-none')
+                        $.each(response.errors, function(key, err_value) {
+                            $('#save_errorlist').append('<li>'+err_value+'</li>');
 
-     })
-    })
-    // function saveForm() {
-      
-    //     $.ajaxSetup({
-    //         headers: {
-    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //         }
-    //     });
+                        });
+                    }
+                    else if(response.status == 200){
+                        $('#save_errorlist').html('');
+                        $('#save_errorlist').addClass('d-none');
+                        window.location.href = "/users";
+                        alert(response.message);
 
-        // $('#submit').html('Please Wait...');
-        // $("#submit").attr("disabled", true);
+                        
+                    }
 
-        // $.ajax({
-        //     url: "{{url('/formsubmit')}}",
-        //     // crossDomain: FALSE,
-        //     type: "POST",
-        //     data: $('#customerForm').serialize(),
-        //     success: function(response) {
-        //         $('#submit').html('Submit');
-        //         $("#submit").attr("disabled", false);
-                //document.getElementById("#customerForm").reset();
+                }
+            });
+        });
 
-
-    //             // window.location.href = "/path/to/thankyoupage";
-    //         }
-    //     });
-    // }
+    });
 </script>
 @endsection

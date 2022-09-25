@@ -31,6 +31,7 @@ class UserController extends Controller
         ]);
         $input['password'] =  Hash::make($input['password']);
         $user = User::create($input);
+        $user->status =  $request->input('status');
         if ($user->status) {
             $user->status = "active";
         } else {
