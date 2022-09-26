@@ -27,11 +27,12 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 });
 
+//users
+
 Route::get('/users', [UserController::class, 'listUser'])->name('users');
 Route::get('/adduser', function () {
    return view('users.create');
 });
-
 Route::get('/edituser/{id}', [UserController::class, 'editUser']);
 Route::get('/deleteuser/{id}', [UserController::class, 'deleteUser']);
 Route::post('/adduser', [UserController::class, 'addUser'])->name('adduser');
@@ -39,14 +40,10 @@ Route::put('/updateuser/{id}', [UserController::class, 'update']);
 
 //customers 
 
-Route::get('/customers', [CustomerController::class, 'listCustomer'])->name('customers');
+Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
+Route::post('/customers/create', [CustomerController::class, 'create'])->name('customers.create');
+Route::get('/customers/{id}/edit', [CustomerController::class, 'edit'])->name('customers.edit');
+Route::post('/customers/{id}', [CustomerController::class, 'update'])->name('customers.update');
+Route::delete('/customers/{id}', [CustomerController::class, 'destory'])->name('customers.destory');
 
-// Route::get('/addcustomer' ,function () {
-//     return view('customers.create');
-// });
 
-
-Route::delete('/deletecustomer/{id}', [CustomerController::class, 'deleteCustomer'])->name('deletecustomer');
-Route::get('/editcustomer/{id}', [CustomerController::class, 'editCustomer'])->name('editcustomer');
-Route::post('/formsubmit', [CustomerController::class, 'createCustomer']);
-Route::post('/update/{id}', [CustomerController::class, 'updateCustomer']);
