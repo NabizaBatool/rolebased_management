@@ -41,14 +41,12 @@ Route::put('/updateuser/{id}', [UserController::class, 'update']);
 
 Route::get('/customers', [CustomerController::class, 'listCustomer'])->name('customers');
 
-//Route::get('/customers' , [CustomerController::class, 'createCustomer'] );
-Route::get('/addcustomer' ,function () {
-    return view('customers.create');
-});
-Route::get('/editcustomer/{id}', [CustomerController::class, 'editCustomer'])->name('editcustomer');
+// Route::get('/addcustomer' ,function () {
+//     return view('customers.create');
+// });
+
 
 Route::delete('/deletecustomer/{id}', [CustomerController::class, 'deleteCustomer'])->name('deletecustomer');
-
-
+Route::get('/editcustomer/{id}', [CustomerController::class, 'editCustomer'])->name('editcustomer');
 Route::post('/formsubmit', [CustomerController::class, 'createCustomer']);
- 
+Route::post('/update/{id}', [CustomerController::class, 'updateCustomer']);

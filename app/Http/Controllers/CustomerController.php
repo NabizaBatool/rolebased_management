@@ -1,16 +1,19 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\File ;
-
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
+
+use Illuminate\Support\Facades\{
+    File,
+    Validator
+};
 
 class CustomerController extends Controller
 {
+
     public function listCustomer(Request $request)
     {
         $customer = Customer::latest()->get();
@@ -68,23 +71,56 @@ class CustomerController extends Controller
     }
 
 
+    public function editCustomer($id)
+    {
+        $customer = Customer::find($id);
+        return response()->json($customer);
+    }
+
+
+    public function updateCustomer(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'profile' => 'image',
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400, 'errors' => $validator->errors()->toArray()
+            ]);
+        } else {
+            $customer = Customer::find($id);
+            $customer->name = $request->input('name');
+            $customer->status = $request->input('status');
+            if ($request->file('profile')) {
+                $destination = public_path('img/customers/') . $customer->profile;
+                if (File::exists($destination)) {
+                    File::delete($destination);
+                }
+                $file = $request->file('profile');
+                $filename = date('Ymd') . $file->getClientOriginalName();
+                $path = 'img/customers';
+                $file->move(public_path($path), $filename);
+                $customer->profile = $filename;
+            }
+            $customer->save();
+            return response()->json([
+                'status' => 200,
+                'message' => 'sucessfully new customer is updated'
+            ]);
+        }
+    }
+
     public function deleteCustomer($id)
     {
         $customer = Customer::find($id);
-        if ($customer ->profile_pic) {
-            $destination = public_path('img/users/') .$customer ->profile_pic;
+        if ($customer->profile_pic) {
+            $destination = public_path('img/users/') . $customer->profile_pic;
             if (File::exists($destination)) {
                 File::delete($destination);
             }
         }
         $customer->delete();
-        return response()->json(['success' => 'Book deleted successfully.']);
+        return response()->json(['success' => 'Customer deleted successfully.']);
     }
-
-
-    // public function editCustomer($id)
-    // {
-    //     $customer = Customer::find($id);
-    //     return view('customers.create', ['cust' => $customer]);
-    // }
 }

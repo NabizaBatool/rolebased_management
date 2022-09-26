@@ -15,4 +15,9 @@ class Customer extends Model
         'profile',
 
     ];
+
+    // public static function createCustomer($request){
+    //     Customer::create($request->input());
+
+    // }
 }
