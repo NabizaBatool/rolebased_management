@@ -15,35 +15,38 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// users
-Route::get('/auth/register',  function () {
-    return view('auth.register');
+// Main 
+Route::prefix('auth')->group(function () {
+    Route::get('/register',  function () {
+        return view('auth.register');
+    });
+
+    Route::get('/login',  function () {
+        return view('auth.login');
+    });
 });
 
-Route::get('/auth/login',  function () {
-    return view('auth.login');
-});
 Route::get('/dashboard', function () {
     return view('dashboard');
 });
 
-//users
+//users (random work)
 
 Route::get('/users', [UserController::class, 'listUser'])->name('users');
 Route::get('/adduser', function () {
-   return view('users.create');
+    return view('users.create');
 });
 Route::get('/edituser/{id}', [UserController::class, 'editUser']);
 Route::get('/deleteuser/{id}', [UserController::class, 'deleteUser']);
 Route::post('/adduser', [UserController::class, 'addUser'])->name('adduser');
 Route::put('/updateuser/{id}', [UserController::class, 'update']);
 
-//customers 
+//customers (standards follow)
 
-Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
-Route::post('/customers/create', [CustomerController::class, 'create'])->name('customers.create');
-Route::get('/customers/{id}/edit', [CustomerController::class, 'edit'])->name('customers.edit');
-Route::post('/customers/{id}', [CustomerController::class, 'update'])->name('customers.update');
-Route::delete('/customers/{id}', [CustomerController::class, 'destory'])->name('customers.destory');
-
-
+Route::prefix('customers')->group(function () {
+    Route::get('', [CustomerController::class, 'index'])->name('customers.index');
+    Route::post('/create', [CustomerController::class, 'create'])->name('customers.create');
+    Route::get('/{id}/edit', [CustomerController::class, 'edit'])->name('customers.edit');
+    Route::post('/{id}', [CustomerController::class, 'update'])->name('customers.update');
+    Route::delete('/{id}', [CustomerController::class, 'destory'])->name('customers.destory');
+});

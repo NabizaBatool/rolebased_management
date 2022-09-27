@@ -11,10 +11,11 @@ use Illuminate\Support\Facades\{
     Hash
 };
 
-class UserController extends Controller
+class UserController extends BaseController
 {
     function listUser()
     {
+//        $this->generalFunction();
         $user = User::all();
         return view('users.list',  ['user' => $user]);
     }

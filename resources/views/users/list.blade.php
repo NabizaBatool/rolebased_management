@@ -1,5 +1,5 @@
 <!-- /.row -->
-@extends('dashboard')
+@extends('layout.main')
 @section('section')
 <div class="content-wrapper">
 @include('layout.alerts')

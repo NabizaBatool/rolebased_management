@@ -1,4 +1,4 @@
-@extends('dashboard')
+@extends('layout.main')
 <!-- Main content -->
 @section('section')
 <div class="content-wrapper">

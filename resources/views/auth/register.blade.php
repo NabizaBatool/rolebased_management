@@ -1,7 +1,7 @@
 @extends('layout.base')
-@section('title')
-Register
-@endsection
+
+@section('title', 'Register')
+
 @section('content')
 <body class="hold-transition register-page">
 <div class="register-box">

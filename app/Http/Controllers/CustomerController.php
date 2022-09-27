@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\CustomerHelper;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -25,7 +26,7 @@ class CustomerController extends Controller
 
                     $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $customer->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editCustomer">Edit</a>';
 
-                    $btn = $btn . '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $customer->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteCustomer">Delete</a>';
+                    $btn = $btn . '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $customer->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteCustomer ml-2">Delete</a>';
 
                     return $btn;
                 })
@@ -33,7 +34,15 @@ class CustomerController extends Controller
                     $url = asset('img/customers/' . $customer->profile);
                     return '<img src= ' . $url . ' class="img-rounded"  height=80 width=80  />';
                 })
-                ->rawColumns(['profile', 'action'])
+
+                ->addColumn('status', function ($customer) {
+                    if($customer->status){
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip" data-original-title="status" data-id="' . $customer->id . '"  class=" btn btn-success btn-sm editCustomer">Active</a>';}
+                    else{
+                    $btn= '<a href="javascript:void(0)" data-toggle="tooltip" data-original-title="status" data-id="' . $customer->id . '" class=" btn btn-danger btn-sm editCustomer">Inactive</a> ';}
+                    return $btn;
+                })
+                ->rawColumns(['profile', 'action' ,'status'])
                 ->make(true);
         }
 
@@ -55,12 +64,12 @@ class CustomerController extends Controller
         } else {
             $customer = Customer::createCustomer($request->all());
             if ($request->hasFile('profile')) {
-                Customer::uploadImage($request, $customer);
+                CustomerHelper::uploadImage($request, $customer);
             }
 
             return response()->json([
                 'status' => 200,
-                'message' => 'sucessfully new customer is added'
+                'message' => 'successfully new customer is added'
             ]);
         }
     }
@@ -69,9 +78,8 @@ class CustomerController extends Controller
     public function edit($id)
     {
         $customer = Customer::findCustomer($id);
-        return response()->json($customer);
+        return response()->json($customer );
     }
-
 
     public function update(Request $request, $id)
     {
@@ -85,11 +93,10 @@ class CustomerController extends Controller
             ]);
         } else {
             $customer = Customer::findCustomer($id);
-            $customer->name = $request->input('name');
-            $customer->status = $request->input('status');
+            $customer->fill($request->all()) ;
             if ($request->file('profile')) {
-                Customer::deleteImage($customer);
-                Customer::uploadImage($request, $customer);
+                CustomerHelper::deleteoldImage($customer);
+                CustomerHelper::uploadImage($request, $customer);
             }else{
             $customer->save();}
             return response()->json([
@@ -103,7 +110,7 @@ class CustomerController extends Controller
     {
         $customer = Customer::findCustomer($id);
         if ($customer->profile) {
-            Customer::deleteImage($customer);
+            CustomerHelper::deleteoldImage($customer);
         }
         $customer->delete();
         return response()->json(['success' => 'Customer deleted successfully.']);

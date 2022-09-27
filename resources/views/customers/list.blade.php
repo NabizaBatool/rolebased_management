@@ -1,12 +1,13 @@
-@extends('dashboard')
+@extends('layout.main')
 @section('section')
+<!-- yajra Datatable for listing -->
 <div class="content-wrapper">
     @include('layout.alerts')
     <div class="container">
         <div class="card-header bg-warning mb-3">
             <h1 class="card-title ">Customers Record</h1>
             <div class="card-tools float-right ">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ajaxModal"><i class="ion-android-person-add"></i>
+                <button type="button" class="btn btn-secondary addBtn" data-toggle="modal" data-target="#ajaxModal"><i class="ion-android-person-add"></i>
                 </button>
             </div>
         </div>
@@ -25,12 +26,13 @@
             </tbody>
         </table>
     </div>
-    <!-- Create and Edit Modal Start -->
+    <!-- Create and Edit Modal -->
 
     @include('customers.create')
 
-    <!-- Modal ends here -->
     @endsection
+
+
     @section('js')
     <script>
         $(document).ready(function() {
@@ -49,7 +51,7 @@
                     },
                     {
                         data: 'status',
-                        name: 'status'
+                        name: 'status',
                     },
                     {
                         data: 'profile',
@@ -70,9 +72,9 @@
                 let formData = new FormData($('#customerForm')[0]);
                 var id = $('#customer_id').val()
                 if (id == "") {
-                    url = '/customers/create';    
+                    url = '/customers/create';
                 } else {
-                    url = 'customers' + '/' + id;    
+                    url = 'customers' + '/' + id;
                 }
                 $.ajax({
                     type: "POST",
@@ -102,6 +104,7 @@
             $(document).on('click', '.editCustomer', function() {
                 var customer_id = $(this).data("id");
                 $('#modelHeading').html("Edit Customer");
+                $('#submit').html("Update");
                 $("#ajaxModal").modal("show");
                 $.ajax({
                     type: "GET",
@@ -109,8 +112,7 @@
                     success: function(data) {
                         $('#customer_id').val(data.id);
                         $('#name').val(data.name);
-                        $('#status').val(data.status);
-                        $('#profile').val(data.profile);
+                        $('#status').val(data.status); 
                     },
                     error: function(data) {
                         console.log('Error:', data);
@@ -140,7 +142,16 @@
             //reset form 
             $(document).on('click', '.close', function() {
                 document.getElementById("customerForm").reset()
-                
+               
+
+            });
+            $(document).on('click', '.addBtn', function() {
+                $('#modelHeading').html("Add Customer");
+                $('#submit').html("Create");
+              
+               
+
+
             });
         })
     </script>
