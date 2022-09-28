@@ -26,8 +26,8 @@ Route::prefix('auth')->group(function () {
     });
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
+Route::get('/main', function () {
+    return view('layout.main');
 });
 
 //users (random work)

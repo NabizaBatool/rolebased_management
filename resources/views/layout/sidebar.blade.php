@@ -20,7 +20,7 @@
         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
         <li class="nav-item menu-open">
-            <a href="{{url('dashboard')}}" class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}">
+            <a href="{{url('main')}}" class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}">
                 <i class="ion-android-home"></i>
                 <p>
                     Home
