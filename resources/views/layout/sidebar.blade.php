@@ -56,6 +56,32 @@
                 </li>
             </ul>
         </li>
+
+
+        <li class="nav-item menu-open">
+            <a href=# class="nav-link {{ Request::is('api/stores') || Request::is('customers') ? 'active' : '' }}">
+                <i class="ion-grid"></i>
+                <p>
+                    Stores Management
+                    <i class="right ion-android-arrow-dropleft"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class=" nav-item ">
+                    <a href="{{url('api/stores')}}" class="nav-link {{ Request::is('api/stores') ? 'active' : '' }}">
+                        <i class="ion-ios-cart"></i>
+                        <p>Stores</p>
+                    </a>
+                </li>
+                <li class=" nav-item ">
+                    <a href="{{url('api/storeoutlet')}}" class="nav-link {{ Request::is('api/storeoutlet') ? 'active' : '' }}">
+                        <i class="ion-android-cart"></i>
+                        <p>Store Outlet</p>
+                    </a>
+                </li>
+                
+            </ul>
+        </li>
     </ul>
 </nav>
   </div>

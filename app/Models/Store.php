@@ -14,6 +14,11 @@ class Store extends Model
         'status',
     ];
 
+    //all outlet data
+    public function storeOutlet(){
+        return $this->hasMany(StoreOutlet::class);
+    }
+
     public static function indexStore()
     {
         return Store::all();
@@ -23,6 +28,7 @@ class Store extends Model
     public static function createStore($request)
     {
         Store::create($request);
+        
     }
 
 
@@ -31,13 +37,18 @@ class Store extends Model
         Store::where('slug', $slug)->delete() ;
     }
 
+    public static function findStore($slug)
+    {
+        return Store::where('slug', $slug)->first();
+    }
 
     public static function updateStore($request ,$slug )
     {
         $store= Store::where('slug', $slug)->first() ;
         $store->name = $request['name'] ;
         $store->status = $request['status'] ;
-        $store->slug = $request['slug'] ;
+        // $store->slug = $request['slug'] ;
         $store->save();
     }
+
 }
