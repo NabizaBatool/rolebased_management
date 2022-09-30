@@ -18,8 +18,8 @@
                             {{ Form::open(array('url' => 'api/storeoutlets' , 'method' => 'POST')) }}
                             @csrf
                             <div class="form-group">
-                                {{Form::label('Branch')}}
-                                {{Form::text('branch', '', ['class' => 'form-control'  ,'placeholder' => 'Enter branch'])}}
+                            {{Form::label('Branch')}}
+                            {{Form::text('branch', '', ['class' => 'form-control'  ,'placeholder' => 'Enter branch'])}}
                             </div>
                             <div class="form-group">
                             {{ Form::label('Store')}}
@@ -27,8 +27,7 @@
                             </div>
                             <div class="form-group">
                             {{ Form::label('Status')}}
-                            {{Form::select('status',[null ,'Inactive','Active'] ,['id'=>'status'] )}}
-                               
+                            {{Form::select('status',['Inactive','Active'] ,['id'=>'status'] )}}
                             </div>
                             {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
                             {{ Form::close() }}

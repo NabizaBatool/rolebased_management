@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class StoreCategory extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'name',
+        'slug',
+        'status',
+    ];
+    public static function createCategory($request)
+    {  
+        return StoreCategory::create($request);  
+    }
+
+
 }

@@ -30,4 +30,6 @@ Route::put('stores/{slug}', [StoreController::class, 'update'])->name('stores.up
 Route::post('storeoutlets', [StoreOutletController::class, 'store'])->name('storeoutlets.store');
 Route::get('storeoutlets/create', [StoreOutletController::class, 'create'])->name('storeoutlets.create');
 Route::get('storeoutlets', [StoreOutletController::class, 'index'])->name('storeoutlets.index');
-   
+Route::delete('storeoutlets/{id}', [StoreOutletController::class, 'destory'])->name('storeoutlets.destory');
+
+Route::get('storecategories/create', [StoreCategoryController::class, 'create'])->name('storecategories.create');

@@ -9,7 +9,7 @@
                 <div class="card-header bg-warning">
                     <h1 class="card-title ">Store Outlet</h1>
                     <div class="card-tools float-right ">
-                        <a href="{{ url('api/stores/create')}}" class="btn bg-primary mr-2 float-right "><i class="ion-android-playstore"></i></a>
+                        <a href="{{ url('api/storeoutlets/create')}}" class="btn bg-primary mr-2 float-right "><i class="ion-android-add"></i></a>
                         </a>
                     </div>
                 </div>
@@ -18,22 +18,23 @@
                 <table class="table table-hover table-primary">
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <th>Branch</th>
                             <th>Status</th>
+                            <th>Store</th>
                             <th width="300px">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($store as $stores)
+                        @foreach ($storeoutlet as $storeoutlets)
                         <tr>
-                            <td>{{$stores->name}}</td>
-                            <td>{{$stores->status }}</td>
+                            <td>{{$storeoutlets->branch}}</td>
+                            <td>{{$storeoutlets->status }}</td>
+                            <td>{{$storeoutlets->store_id}}</td>
                             <td>
-                                {{ Form::open(array('url' => 'api/stores/'.$stores->slug , 'method' => 'DELETE', 'enctype' => 'multipart/form-data')) }}
+                            {{ Form::open(array('url' => 'api/storeoutlets/'.$storeoutlets->id , 'method' => 'DELETE')) }}
                                 @csrf
-                                {{Form::submit('Delete', ['class'=>'btn btn-danger btn-sm'])}}
-                                <a href="{{ url('api/stores/'.$stores->slug. '/edit') }}" class="btn bg-primary btn-sm "> <i class="ion-edit"></i></a>
-                                {{ Form::close() }}
+                                    {{Form::submit('Delete', ['class'=>'btn btn-danger btn-sm'])}}    
+                                    {{ Form::close() }}
                             </td>
 
                         </tr>

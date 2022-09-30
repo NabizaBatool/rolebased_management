@@ -59,7 +59,7 @@
 
 
         <li class="nav-item menu-open">
-            <a href=# class="nav-link {{ Request::is('api/stores') || Request::is('customers') ? 'active' : '' }}">
+            <a href=# class="nav-link {{ Request::is('api/stores') || Request::is('api/storeoutlets') ? 'active' : '' }}">
                 <i class="ion-grid"></i>
                 <p>
                     Stores Management
@@ -74,7 +74,7 @@
                     </a>
                 </li>
                 <li class=" nav-item ">
-                    <a href="{{url('api/storeoutlet')}}" class="nav-link {{ Request::is('api/storeoutlet') ? 'active' : '' }}">
+                    <a href="{{url('api/storeoutlets')}}" class="nav-link {{ Request::is('api/storeoutlets') ? 'active' : '' }}">
                         <i class="ion-android-cart"></i>
                         <p>Store Outlet</p>
                     </a>

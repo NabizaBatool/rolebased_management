@@ -13,14 +13,25 @@ class StoreOutlet extends Model
         'store_id',
         'status',
     ];
+
+    public function storeCategory(){
+        return $this->belongsToMany(StoreCategory::class , 'store_outlet_categories') ;
+    }
+
     public function store(){
         return $this->belongsTo(Store::class);
     }
-
-    public static function createOutlet($request)
+    public static function indexStore()
     {
-        
-        return StoreOutlet::create($request);
-        
+        return StoreOutlet::all();
     }
+    public static function createOutlet($request)
+    {  
+        return StoreOutlet::create($request);  
+    }
+    public static function destroyOutlet($id)
+    {
+        StoreOutlet::find($id)->delete() ;
+    }
+
 }

@@ -8,8 +8,8 @@
 
 namespace App\Helpers;
 
-
-use Illuminate\Http\File;
+use Illuminate\Http;
+use Illuminate\Support\Facades\File;
 
 class CustomerHelper
 {
@@ -31,4 +31,8 @@ class CustomerHelper
             File::delete($destination);
         }
     }
+
+
+
+    
 }

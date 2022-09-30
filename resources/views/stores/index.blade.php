@@ -33,7 +33,7 @@
                                 @csrf
                                     {{Form::submit('Delete', ['class'=>'btn btn-danger btn-sm'])}}    
                                     <a href="{{ url('api/stores/'.$stores->slug. '/edit') }}" class="btn bg-primary btn-sm "> <i class="ion-edit"></i></a>  
-                                </form> 
+                                    {{ Form::close() }}
                             </td>
 
                         </tr>
